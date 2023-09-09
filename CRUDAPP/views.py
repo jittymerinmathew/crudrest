@@ -2,6 +2,10 @@ from rest_framework import generics
 from rest_framework.response import Response
 from .models import Customer, Product
 from .serializers import CustomerSerializer, ProductSerializer
+from rest_framework import status
+from rest_framework.decorators import api_view
+from django.utils import timezone
+from datetime import timedelta
 
 class CustomerListCreateView(generics.ListCreateAPIView):
     queryset = Customer.objects.all()
@@ -19,14 +23,6 @@ class ProductRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .models import Product
-from .serializers import ProductSerializer
-from django.utils import timezone
-from datetime import timedelta
 
 @api_view(['PUT'])
 def activate_or_deactivate_product(request, product_id, action):
